@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Booking</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            width: 420px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: none;
+        }
+
+        input {
+            background: #334155;
+            color: white;
+        }
+
+        input[readonly] {
+            opacity: 0.7;
+        }
+
+        button {
+            background: #22c55e;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .summary {
+            background: #334155;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <span class="back" onclick="goBack()">← Back</span>
+            <h2>🎟️ Booking</h2>
+        </div>
+
+        <div class="summary" id="summary"></div>
+
+        <input id="train" readonly />
+        <input id="from" readonly />
+        <input id="to" readonly />
+        <input id="date" readonly />
+
+        <div id="passengers"></div>
+
+        <button type="button" onclick="addPassenger()">+ Add Passenger</button>
+        <button onclick="confirmBooking()">Confirm Booking & Pay</button>
+    </div>
+
+    <script>
+        // Parse query params
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                train: params.get('train'),
+                from: params.get('from'),
+                to: params.get('to'),
+                date: params.get('date')
+            };
+        }
+
+        const data = getQueryParams();
+
+        // Autofill fields
+        document.getElementById('train').value = `Train: ${data.train || ''}`;
+        document.getElementById('from').value = `From: ${data.from || ''}`;
+        document.getElementById('to').value = `To: ${data.to || ''}`;
+        document.getElementById('date').value = `Date: ${data.date || ''}`;
+
+        // Summary box
+        document.getElementById('summary').innerHTML = `
+            <strong>${data.train}</strong><br/>
+            ${data.from} → ${data.to}<br/>
+            Date: ${data.date}
+        `;
+
+        function addPassenger(name = '', age = '') {
+            const container = document.getElementById('passengers');
+
+            const div = document.createElement('div');
+            div.style.marginBottom = '10px';
+
+            div.innerHTML = `
+            <input class="p-name" placeholder="Passenger Name" value="${name}" />
+            <input class="p-age" type="number" placeholder="Age" value="${age}" />
+            `;
+
+            container.appendChild(div);
+        }
+
+        // Make it accessible to button
+        window.addPassenger = addPassenger;
+
+        // Add one passenger by default
+        addPassenger();
+
+        async function confirmBooking() {
+            const names = document.querySelectorAll('.p-name');
+            const ages = document.querySelectorAll('.p-age');
+
+            const passengers = [];
+
+
+            for (let i = 0; i < names.length; i++) {
+                const name = names[i].value.trim();
+                const age = ages[i].value.trim();
+
+                if (!name || !age) {
+                    alert('Please fill all passenger details');
+                    return;
+                }
+
+                passengers.push({
+                    name,
+                    age: Number(age)
+                });
+            }
+
+            const payload = {
+                train: data.train,
+                from: data.from,
+                to: data.to,
+                date: data.date,
+                passengers
+            };
+
+            try {
+                const response = await fetch('/api/book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+
+                if (!response.ok) {
+                    alert(result.message || 'Booking failed');
+                    return;
+                }
+
+                console.log(result)
+
+                alert(`✅ Booking Confirmed!\nTotal Fare: ₹${result.booking.fare}\nPress Ok to Pay`);
+
+            } catch (err) {
+                alert('Server not reachable');
+            }
+        }
+
+        function goBack() {
+            window.location.href = '/';
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+{
+  "stations": [
+    {
+      "code": "HWH",
+      "name": "Howrah"
+    },
+    {
+      "code": "SRC",
+      "name": "Santragachi"
+    },
+    {
+      "code": "ULB",
+      "name": "Uluberia"
+    },
+    {
+      "code": "BZN",
+      "name": "Bagnan"
+    },
+    {
+      "code": "MCA",
+      "name": "Mecheda"
+    },
+    {
+      "code": "KGP",
+      "name": "Kharagpur"
+    },
+    {
+      "code": "SDAH",
+      "name": "Sealdah"
+    },
+    {
+      "code": "BBD",
+      "name": "Bidhannagar"
+    },
+    {
+      "code": "DDJ",
+      "name": "Dum Dum Junction"
+    },
+    {
+      "code": "BLH",
+      "name": "Belgharia"
+    },
+    {
+      "code": "AGP",
+      "name": "Agarpara"
+    },
+    {
+      "code": "BT",
+      "name": "Barasat"
+    },
+    {
+      "code": "HNB",
+      "name": "Habra"
+    },
+    {
+      "code": "TKNR",
+      "name": "Thakurnagar"
+    },
+    {
+      "code": "BNJ",
+      "name": "Bangaon"
+    },
+    {
+      "code": "LLH",
+      "name": "Liluah"
+    },
+    {
+      "code": "BLY",
+      "name": "Bally"
+    },
+    {
+      "code": "UTP",
+      "name": "Uttarpara"
+    },
+    {
+      "code": "SRP",
+      "name": "Serampore"
+    },
+    {
+      "code": "BDC",
+      "name": "Bandel"
+    },
+    {
+      "code": "CNS",
+      "name": "Chandannagar"
+    },
+    {
+      "code": "HGY",
+      "name": "Hooghly"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Train Search</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .container {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            width: 400px;
+            max-width: calc(100% - 20px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: none;
+        }
+
+        input {
+            background: #334155;
+            color: white;
+        }
+
+        button {
+            background: #3b82f6;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        .results {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .train {
+            background: #334155;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: #f87171;
+            margin-top: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: none;
+            background: #334155;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>🚆 Train Search</h2>
+
+        <input id="from" placeholder="From Station (e.g. Kolkata)" />
+        <input id="to" placeholder="To Station (e.g. Delhi)" />
+        <input id="date" type="date" placeholder="Enter date" />
+        <select id="sortBy">
+            <option value="">Sort By</option>
+            <option value="fare">Fare</option>
+            <option value="time">Journey Time</option>
+        </select>
+
+        <select id="sortOrder">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+        <button onclick="searchTrains()">Search</button>
+
+        <div class="error" id="error"></div>
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        document.getElementById('date').value = (new Date()).toISOString().split('T')[0];
+        async function searchTrains() {
+            const from = document.getElementById('from').value.trim();
+            const to = document.getElementById('to').value.trim();
+            const date = document.getElementById('date').value.trim();
+
+            const resultsDiv = document.getElementById('results');
+            const errorDiv = document.getElementById('error');
+
+            resultsDiv.innerHTML = '';
+            errorDiv.textContent = '';
+
+            if (!from || !to || !date) {
+                errorDiv.textContent = 'All fields are required.';
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `/api/search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`
+                );
+
+                const data = await response.json();
+
+                //Sorting
+
+                const sortBy = document.getElementById('sortBy').value;
+                const sortOrder = document.getElementById('sortOrder').value;
+
+                function timeToMinutes(str) {
+                    if (!str) return Infinity;
+                    const match = str.match(/(\d+)h\s*(\d+)m/);
+                    if (!match) return Infinity;
+                    return parseInt(match[1]) * 60 + parseInt(match[2]);
+                }
+
+                if (sortBy) {
+                    data.trains.sort((a, b) => {
+                        let valA, valB;
+
+                        if (sortBy === 'fare') {
+                            valA = a.fare ?? Infinity;
+                            valB = b.fare ?? Infinity;
+                        }
+                        else if (sortBy === 'time') {
+                            valA = timeToMinutes(a.journeyTime);
+                            valB = timeToMinutes(b.journeyTime);
+                        }
+
+                        if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+                        if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+                        return 0;
+                    });
+                }
+
+                if (!response.ok) {
+                    errorDiv.textContent = data.error || 'Something went wrong';
+                    return;
+                }
+
+                if (data.count === 0) {
+                    resultsDiv.innerHTML = '<p>No trains found.</p>';
+                    return;
+                }
+
+                data.trains.forEach(train => {
+                    const div = document.createElement('div');
+                    div.className = 'train';
+
+                    const bookingUrl = `/booking?train=${encodeURIComponent(train.train_name)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+
+                    div.innerHTML = `
+                        <strong>${train.train_name}</strong><br/>
+                        Runs on: ${train.runs_on.join(', ')}<br/>
+                        Journey Time: ${train.journeyTime || 'N/A'}<br />
+                        Fare: ₹${train.fare.toFixed(2) || 'N/A'}
+                        <button onclick="window.location.href='${bookingUrl}'">
+                        Book Now
+                        </button>
+                    `;
+
+                    resultsDiv.appendChild(div);
+                });
+
+            } catch (err) {
+                errorDiv.textContent = 'Server not reachable';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
