@@ -144,6 +144,22 @@
         // Add one passenger by default
         addPassenger();
 
+        // Finds a station's code from its name
+        function findStationCode(name, stations) {
+            const s = stations.find(s => s.name.toLowerCase().trim() === name.toLowerCase().trim());
+            return s ? s.code : null;
+        }
+
+        // Calculates fare based on distance * price per km * passenger count
+        function calculateFare(train, fromCode, toCode, passengerCount) {
+            let distFrom = 0, distTo = 0;
+            for (const stop of train.schedule) {
+                if (stop.station_code === fromCode) distFrom = stop.distance;
+                if (stop.station_code === toCode) distTo = stop.distance;
+            }
+            return (distTo - distFrom) * train.price_per_km * passengerCount;
+        }
+
         async function confirmBooking() {
             const names = document.querySelectorAll('.p-name');
             const ages = document.querySelectorAll('.p-age');
@@ -166,42 +182,41 @@
                 });
             }
 
-            const payload = {
-                train: data.train,
-                from: data.from,
-                to: data.to,
-                date: data.date,
-                passengers
-            };
-
             try {
-                const response = await fetch('/api/book', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
+                const [stationsRes, trainsRes] = await Promise.all([
+                    fetch('stations.json'),
+                    fetch('trains.json')
+                ]);
+                const stationsData = await stationsRes.json();
+                const trainsData = await trainsRes.json();
 
-                const result = await response.json();
+                const fromCode = findStationCode(data.from, stationsData.stations);
+                const toCode = findStationCode(data.to, stationsData.stations);
 
-
-                if (!response.ok) {
-                    alert(result.message || 'Booking failed');
+                if (!fromCode || !toCode) {
+                    alert('Invalid station names.');
                     return;
                 }
 
-                console.log(result)
+                const train = trainsData.trains.find(
+                    t => t.train_name.toLowerCase() === data.train.toLowerCase()
+                );
 
-                alert(`✅ Booking Confirmed!\nTotal Fare: ₹${result.booking.fare}\nPress Ok to Pay`);
+                if (!train) {
+                    alert('Train not found.');
+                    return;
+                }
+
+                const fare = calculateFare(train, fromCode, toCode, passengers.length);
+                alert(`✅ Booking Confirmed!\nTotal Fare: ₹${fare.toFixed(2)}\nPress Ok to Pay`);
 
             } catch (err) {
-                alert('Server not reachable');
+                alert('Failed to load data. Make sure stations.json and trains.json are in the public folder.');
             }
         }
 
         function goBack() {
-            window.location.href = '/';
+            window.location.href = 'index.html';
         }
     </script>
 
