@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Booking</title>
-    <link rel="stylesheet" href="bookingStyle.css" />
+    <link rel="stylesheet" href="/styles/bookingStyle.css" />
 </head>
 
 <body>
@@ -115,8 +115,9 @@
 
             try {
                 const [stationsRes, trainsRes] = await Promise.all([
-                    fetch('/stations.json'),
-                    fetch('/trains.json')
+                    fetch('/data/stations.json'),
+                    fetch('/trains.json'),
+                    console.log('Data Fetched')
                 ]);
                 const stationsData = await stationsRes.json();
                 const trainsData = await trainsRes.json();
