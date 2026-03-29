@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Train Search</title>
-    <link rel="stylesheet" href="/styles/indexStyle.css" />
+    <link rel="stylesheet" href="./styles/indexStyle.css" />
 </head>
 
 <body>
@@ -114,8 +114,8 @@
             try {
                 // Fetch both JSON files directly from the repo
                 const [stationsRes, trainsRes] = await Promise.all([
-                    fetch('/data/stations.json'),
-                    fetch('/data/trains.json')
+                    fetch('./data/stations.json'),
+                    fetch('./data/trains.json')
                 ]);
                 const stationsData = await stationsRes.json();
                 const trainsData = await trainsRes.json();
