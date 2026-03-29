@@ -115,8 +115,8 @@
 
             try {
                 const [stationsRes, trainsRes] = await Promise.all([
-                    fetch('stations.json'),
-                    fetch('trains.json')
+                    fetch('/stations.json'),
+                    fetch('/trains.json')
                 ]);
                 const stationsData = await stationsRes.json();
                 const trainsData = await trainsRes.json();
