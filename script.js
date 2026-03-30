@@ -145,3 +145,20 @@ async function searchTrains() {
         errorDiv.textContent = 'Failed to load data.';
     }
 }
+
+//creating a dropdown list of stations
+async function populateStations() {
+    const res = await fetch('./data/stations.json');
+    const data = await res.json();
+    
+    ['station-list-from', 'station-list-to'].forEach(listId => {
+        const dl = document.getElementById(listId);
+        data.stations.forEach(s => {
+            const option = document.createElement('option');
+            option.value = s.name;
+            dl.appendChild(option);
+        });
+    });
+}
+
+populateStations();
