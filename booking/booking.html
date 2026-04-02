@@ -3,8 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Booking</title>
-    <link rel="stylesheet" href="../styles/bookingStyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style/bookingStyle.css" />
 </head>
 
 <body>
@@ -12,7 +16,7 @@
     <div class="container">
         <div class="header">
             <span class="back" onclick="goBack()">← Back</span>
-            <h2>🎟️ Booking</h2>
+            <h2>🎟️ My Booking</h2>
         </div>
 
         <div class="summary" id="summary"></div>
@@ -27,6 +31,7 @@
         <button type="button" onclick="addPassenger()">+ Add Passenger</button>
         <button onclick="confirmBooking()">Confirm Booking & Pay</button>
     </div>
-</body>
+
     <script src="booking.js"></script>
+</body>
 </html>

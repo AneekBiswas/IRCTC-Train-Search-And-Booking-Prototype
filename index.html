@@ -3,8 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Train Search</title>
-    <link rel="stylesheet" href="./styles/indexStyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style/indexStyle.css" />
 </head>
 
 <body>
@@ -17,7 +21,9 @@
 
         <input id="to" placeholder="To Station" list="station-list-to" autocomplete="off" />
         <datalist id="station-list-to"></datalist>
+
         <input id="date" type="date" />
+
         <select id="sortBy">
             <option value="">Sort By</option>
             <option value="fare">Fare</option>
@@ -27,11 +33,13 @@
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
         </select>
-        <button onclick="searchTrains()">Search</button>
+
+        <button onclick="searchTrains()">Search Trains</button>
 
         <div class="error" id="error"></div>
         <div class="results" id="results"></div>
     </div>
-</body>
+
     <script src="script.js"></script>
+</body>
 </html>
