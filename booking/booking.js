@@ -66,6 +66,7 @@ async function confirmBooking() {
 
     const passengers = [];
 
+
     for (let i = 0; i < names.length; i++) {
         const name = names[i].value.trim();
         const age = ages[i].value.trim();
@@ -84,7 +85,8 @@ async function confirmBooking() {
     try {
         const [stationsRes, trainsRes] = await Promise.all([
             fetch('../data/stations.json'),
-            fetch('../data/trains.json')
+            fetch('../data/trains.json'),
+            console.log('Data Fetched')
         ]);
         const stationsData = await stationsRes.json();
         const trainsData = await trainsRes.json();
