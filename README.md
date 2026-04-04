@@ -2,9 +2,12 @@
 
 A train ticket booking web application inspired by IRCTC, featuring Kolkata suburban railway routes. Search for trains between stations, view fares and journey times, and book tickets for multiple passengers.
 
+- **GitHub Pages**: Deployed on GitHub Pages https://aneekbiswas.github.io/IRCTC-Train-Search-And-Booking-Prototype/
+
 ## Features
 
 - **Station Search**: Autocomplete-enabled dropdown with 23 Kolkata suburban stations
+- **Swap Stations**: One-click button to swap From and To stations
 - **Date Selection**: Choose travel date with past dates disabled
 - **Dynamic Filtering**: Shows only trains running on selected day between selected stations
 - **Smart Fare Calculation**: Distance-based pricing with per-km rates
