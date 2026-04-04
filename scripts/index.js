@@ -5,6 +5,7 @@ const date=document.getElementById('date');
 //User cant enter a date before today
 date.min=today_date;
 
+let hasSearched = false;
 // ---------- Helpers ----------
 
 // Finds a station's code from its name
@@ -67,6 +68,7 @@ function calculateJourneyTime(train, fromCode, toCode) {
 // ---------- Main Search ----------
 
 async function searchTrains() {
+    hasSearched = true;
     const from = document.getElementById('from').value.trim();
     const to = document.getElementById('to').value.trim();
     const date = document.getElementById('date').value.trim();
@@ -170,3 +172,19 @@ async function populateStations() {
 }
 
 populateStations();
+
+function swapStations() {
+    const fromInput = document.getElementById('from');
+    const toInput = document.getElementById('to');
+    if(fromInput.value && toInput.value){
+        const temp = fromInput.value;
+        fromInput.value = toInput.value;
+        toInput.value = temp;
+        if(hasSearched){
+            searchTrains();
+        }
+    }else{
+        alert('Both From and To stations must be filled to swap.');
+        return
+    }
+}
