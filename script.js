@@ -94,8 +94,12 @@ async function searchTrains() {
         const fromCode = findStationCode(from, stationsData.stations);
         const toCode = findStationCode(to, stationsData.stations);
 
-        if (!fromCode || !toCode || fromCode === toCode) {
+        if (!fromCode || !toCode) {
             errorDiv.textContent = 'Invalid station name(s).';
+            return;
+        }
+        if(fromCode === toCode){
+            errorDiv.textContent = 'From and To stations cannot be the same.';
             return;
         }
 
