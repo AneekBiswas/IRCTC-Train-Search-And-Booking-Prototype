@@ -98,8 +98,8 @@ async function confirmBooking() {
 
     try {
         const [stationsRes, trainsRes] = await Promise.all([
-            fetch('../data/stations.json'),
-            fetch('../data/trains.json'),
+            fetch('./data/stations.json'),
+            fetch('./data/trains.json'),
             console.log('Data Fetched')
         ]);
         const stationsData = await stationsRes.json();
@@ -131,5 +131,5 @@ async function confirmBooking() {
 }
 
 function goBack() {
-    window.location.href = '../index.html';
+    window.location.href = 'index.html';
 }

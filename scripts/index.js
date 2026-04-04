@@ -137,7 +137,7 @@ async function searchTrains() {
             const div = document.createElement('div');
             div.className = 'train';
 
-            const bookingUrl = `booking/booking.html?train=${encodeURIComponent(train.train_name)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+            const bookingUrl = `booking.html?train=${encodeURIComponent(train.train_name)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
 
             div.innerHTML = `
                 <strong>${train.train_name}</strong><br/>
