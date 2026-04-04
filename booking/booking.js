@@ -43,9 +43,9 @@ function addPassenger(name = '', age = '') {
     });
 
     ageInput.addEventListener('input', () => {
-        let val = ageInput.value;
+        let val = parseInt(ageInput.value);
         if (isNaN(val)) ageInput.value = '';
-        else if (val<1) ageInput.value = '';
+        else if (val<1) ageInput.value = '1';
         else if (val>100) ageInput.value = '100';
     });
 
