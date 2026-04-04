@@ -68,6 +68,19 @@ select:focus {
     box-shadow: 0 0 0 2px rgba(0, 150, 255, 0.2);
 }
 
+#swapBtn {
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    font-size: 1.7rem;
+    background: #0096FF;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
 select {
     cursor: pointer;
     appearance: none;
