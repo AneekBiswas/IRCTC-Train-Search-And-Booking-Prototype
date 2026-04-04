@@ -99,8 +99,7 @@ async function confirmBooking() {
     try {
         const [stationsRes, trainsRes] = await Promise.all([
             fetch('./data/stations.json'),
-            fetch('./data/trains.json'),
-            console.log('Data Fetched')
+            fetch('./data/trains.json')
         ]);
         const stationsData = await stationsRes.json();
         const trainsData = await trainsRes.json();
