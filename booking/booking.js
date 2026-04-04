@@ -5,7 +5,9 @@ function getQueryParams() {
         train: params.get('train'),
         from: params.get('from'),
         to: params.get('to'),
-        date: params.get('date')
+        date: params.get('date'),
+        duration: params.get('duration'),  
+        fare: params.get('fare')  
     };
 }
 
@@ -18,11 +20,26 @@ document.getElementById('to').value = `To: ${data.to || ''}`;
 document.getElementById('date').value = `Date: ${data.date || ''}`;
 
 // Summary box
-document.getElementById('summary').innerHTML = `
-    <strong>${data.train}</strong><br/>
-    ${data.from} → ${data.to}<br/>
-    Date: ${data.date}
-`;
+function renderTrainDetails(data) {
+  const container = document.getElementById("summary");
+  console.log("Journey:", train.journeyTime, "Fare:", train.fare);
+
+  container.innerHTML = `
+    <div class="train-summary">
+      <div class="train-left">
+        <h2>${data.train || 'Train Name'}</h2>
+        <p>${data.from || ''} → ${data.to || ''}</p>
+        <span class="date">${data.date || ''}</span>
+      </div>
+
+      <div class="train-right">
+        <span class="duration">Duration: ${data.duration || 'N/A'}</span>
+        <span class="fare">₹ ${data.fare || '0'}</span>
+      </div>
+    </div>
+  `;
+}
+renderTrainDetails(data);
 
 function addPassenger(name = '', age = '') {
     const container = document.getElementById('passengers');
@@ -31,9 +48,47 @@ function addPassenger(name = '', age = '') {
     div.style.marginBottom = '10px';
 
     div.innerHTML = `
-    <input class="p-name" placeholder="Passenger Name" value="${name}" />
-    <input class="p-age" type="number" placeholder="Age" value="${age}" />
-    `;
+  <div class="booking-page">
+
+
+    <!-- Passenger form -->
+    <div class="passenger-card">
+      <h2>Passenger Details</h2>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label>Full Name * </label>
+          <input type="text" class="p-name"placeholder="Full Name">
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" placeholder="Email">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label>Phone</label>
+          <div class="phone-box">
+            <span>+91</span>
+            <input type="text" placeholder="Phone Number">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Age * </label>
+          <input type="number" class="p-age" placeholder="Age">
+        </div>
+      </div>
+      <div class="but">
+      <button  class="add-passenger-btn" type="button" onclick="addPassenger()">+ Add Passenger</button>
+      <button type="button"  class="proceed-btn" onclick="confirmBooking()">Proceed to Payment →</button>
+        </div>
+    </div>
+
+  </div>
+`;
 
     container.appendChild(div);
 }
@@ -61,6 +116,8 @@ function calculateFare(train, fromCode, toCode, passengerCount) {
 }
 
 async function confirmBooking() {
+    const container = document.getElementById('passengers');
+
     const names = document.querySelectorAll('.p-name');
     const ages = document.querySelectorAll('.p-age');
 

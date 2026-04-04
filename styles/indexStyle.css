@@ -1,190 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
-
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-:root {
-    --navy-deep: #050d1a;
-    --navy-mid: #0a1628;
-    --navy-card: rgba(12, 28, 55, 0.75);
-    --glass-border: rgba(99, 160, 255, 0.15);
-    --glass-shine: rgba(255, 255, 255, 0.06);
-    --accent-blue: #3b7fff;
-    --accent-purple: #7c5cfc;
-    --accent-cyan: #22d3ee;
-    --text-primary: #e8f0ff;
-    --text-secondary: rgba(180, 210, 255, 0.65);
-    --input-bg: rgba(255, 255, 255, 0.06);
-    --input-border: rgba(99, 160, 255, 0.2);
-    --success: #22c55e;
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-}
-
-body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy-deep);
-    color: var(--text-primary);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 16px;
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* Atmospheric background */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(59, 127, 255, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(124, 92, 252, 0.1) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(34, 211, 238, 0.05) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Dot grid overlay */
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(99, 160, 255, 0.08) 1px, transparent 1px);
-    background-size: 28px 28px;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-    background: var(--navy-card);
-    backdrop-filter: blur(24px) saturate(1.4);
-    -webkit-backdrop-filter: blur(24px) saturate(1.4);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 32px 28px 36px;
-    box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-shine);
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Header */
-.container > h2 {
+.text
+{
+    color: #333;
+    line-height: 1.5;
+    margin: 50px;
     font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-    color: var(--text-primary);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
-/* Tagline under title */
-.container > h2::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--glass-border), transparent);
-    margin-left: 8px;
-}
-
-/* Subtle subheader line */
-.container::before {
-    content: 'Find your journey';
-    display: block;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--text-secondary);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+.text h1
+{
+    font-size: 50px;
     margin-bottom: 20px;
-    opacity: 0.8;
+    
 }
 
-/* Input & Select shared */
-input,
-select {
-    width: 100%;
-    padding: 13px 16px;
-    margin: 6px 0;
-    border-radius: 12px;
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    color: var(--text-primary);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    outline: none;
-    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
-    appearance: none;
-    -webkit-appearance: none;
+.text h2
+{
+    font-size: 20px;
 }
-
-input::placeholder {
-    color: var(--text-secondary);
-    font-weight: 300;
-}
-
-input:focus,
-select:focus {
-    border-color: rgba(99, 160, 255, 0.5);
-    background: rgba(59, 127, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(59, 127, 255, 0.12);
-}
-
-/* Date input calendar icon tint */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(0.7) sepia(1) saturate(2) hue-rotate(190deg);
-    cursor: pointer;
-    opacity: 0.7;
-}
-
-/* Select arrow */
-select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236ba3ff' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 36px;
-    cursor: pointer;
-}
-
-select option {
-    background: #0f1f3d;
-    color: var(--text-primary);
-}
-
-/* Sort row — put selects side by side */
-select + select {
-    margin-top: 0;
-}
-
-/* Section divider between inputs and sort */
-input[type="date"] {
-    position: relative;
-}
-
-/* Search button */
 button {
-    width: 100%;
+    width: 15%;
     padding: 14px;
-    margin: 14px 0 4px;
-    border-radius: 12px;
+    margin-left: 50px;
+    margin-top: 0px;
+    border-radius: 15px;
     border: none;
-    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: white;
     font-family: 'Syne', sans-serif;
     font-size: 15px;
@@ -196,99 +36,34 @@ button {
     position: relative;
     overflow: hidden;
 }
-
-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
-    pointer-events: none;
-}
-
 button:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 28px rgba(59, 127, 255, 0.45);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-/* Results */
-.results {
-    margin-top: 20px;
-    max-height: 340px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(99, 160, 255, 0.3) transparent;
-    padding-right: 2px;
-}
-
-.results::-webkit-scrollbar {
-    width: 4px;
-}
-
-.results::-webkit-scrollbar-track { background: transparent; }
-.results::-webkit-scrollbar-thumb {
-    background: rgba(99, 160, 255, 0.3);
-    border-radius: 4px;
-}
-
-/* Train cards */
-.train {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--glass-border);
-    padding: 16px;
-    border-radius: 14px;
-    margin-bottom: 10px;
-    font-size: 13.5px;
-    line-height: 1.7;
-    transition: background 0.2s, border-color 0.2s;
-    animation: fadeIn 0.4s ease both;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.train:hover {
-    background: rgba(59, 127, 255, 0.07);
-    border-color: rgba(99, 160, 255, 0.3);
-}
-
-.train strong {
+    background: rgb(10, 187, 218);
+    backdrop-filter: blur(10px);
+    color:black;
     font-family: 'Syne', sans-serif;
     font-size: 15px;
     font-weight: 700;
-    color: #a8c8ff;
-    display: block;
-    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(59, 127, 255, 0.35);
+    position: relative;
+    overflow: hidden;
 }
-
-.train button {
-    margin: 10px 0 0;
-    padding: 9px 14px;
-    font-size: 13px;
-    background: linear-gradient(135deg, rgba(59,127,255,0.9), rgba(124,92,252,0.9));
-    box-shadow: 0 2px 12px rgba(59, 127, 255, 0.25);
-    border-radius: 8px;
+body::before {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  z-index: -1;
 }
-
-/* Error */
-.error {
-    color: #f87171;
-    font-size: 13px;
-    margin-top: 10px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    background: rgba(248, 113, 113, 0.08);
-    border: 1px solid rgba(248, 113, 113, 0.2);
-    display: none;
-}
-
-.error:not(:empty) {
-    display: block;
-    animation: fadeIn 0.3s ease;
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
 }

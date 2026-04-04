@@ -1,5 +1,8 @@
 // Set today's date as default
-document.getElementById('date').value = new Date().toISOString().split('T')[0];
+const dateInput = document.getElementById('date');
+if (dateInput) {
+    dateInput.value = new Date().toISOString().split('T')[0];
+}
 
 // ---------- Helpers ----------
 
@@ -62,12 +65,52 @@ function calculateJourneyTime(train, fromCode, toCode) {
 
 // ---------- Main Search ----------
 
-async function searchTrains() {
+function goToResults() {
     const from = document.getElementById('from').value.trim();
     const to = document.getElementById('to').value.trim();
     const date = document.getElementById('date').value.trim();
+
+    if (!from || !to || !date) {
+        alert("All fields are required");
+        return;
+    }
+
+    // Redirect with data in URL
+    window.location.href = `./results/results.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+}
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        from: params.get('from'),
+        to: params.get('to'),
+        date: params.get('date')
+    };
+}
+
+async function searchTrains() {
+
     const resultsDiv = document.getElementById('results');
     const errorDiv = document.getElementById('error');
+    console.log("URL:", window.location.href);
+
+   let from, to, date;
+
+// SAFE GET VALUES
+const fromInput = document.getElementById('from');
+const toInput = document.getElementById('to');
+const dateInput = document.getElementById('date');
+
+if (fromInput && toInput && dateInput) {
+    from = fromInput.value.trim();
+    to = toInput.value.trim();
+    date = dateInput.value.trim();
+} else {
+    const params = new URLSearchParams(window.location.search);
+    from = params.get('from');
+    to = params.get('to');
+    date = params.get('date');
+}
+    console.log("Searching trains from", from, "to", to, "on", date);
 
     resultsDiv.innerHTML = '';
     errorDiv.textContent = '';
@@ -80,8 +123,8 @@ async function searchTrains() {
     try {
         // Fetch both JSON files directly from the repo
         const [stationsRes, trainsRes] = await Promise.all([
-            fetch('./data/stations.json'),
-            fetch('./data/trains.json')
+            fetch('/data/stations.json'),
+            fetch('/data/trains.json')
         ]);
         const stationsData = await stationsRes.json();
         const trainsData = await trainsRes.json();
@@ -101,7 +144,7 @@ async function searchTrains() {
         // Filter trains and compute fare + journey time for each
         let results = filterTrains(trainsData.trains, fromCode, toCode, dayShort).map(train => ({
             ...train,
-            journeyTime: calculateJourneyTime(train, fromCode, toCode),
+            journeyTime: calculateJourneyTime(train, fromCode, toCode) || "N/A",
             fare: calculateFare(train, fromCode, toCode, 1)
         }));
 
@@ -111,8 +154,11 @@ async function searchTrains() {
         }
 
         // Sort results if a sort option is selected
-        const sortBy = document.getElementById('sortBy').value;
-        const sortOrder = document.getElementById('sortOrder').value;
+        const sortByEl = document.getElementById('sortBy');
+        const sortOrderEl = document.getElementById('sortOrder');
+
+        const sortBy = sortByEl ? sortByEl.value : "";
+        const sortOrder = sortOrderEl ? sortOrderEl.value : "asc";
 
         if (sortBy) {
             results.sort((a, b) => {
@@ -129,26 +175,70 @@ async function searchTrains() {
             const div = document.createElement('div');
             div.className = 'train';
 
-            const bookingUrl = `booking/booking.html?train=${encodeURIComponent(train.train_name)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+          const bookingUrl = `/booking/booking.html?train=${encodeURIComponent(train.train_name)}&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}&duration=${encodeURIComponent(train.journeyTime || "N/A")}&fare=${encodeURIComponent(train.fare ?? 0)}`;
+            console.log("Journey:", train.journeyTime, "Fare:", train.fare);
+           div.innerHTML = `
+  <div class="train-card">
 
-            div.innerHTML = `
-                <strong>${train.train_name}</strong><br/>
-                Runs on: ${train.runs_on.join(', ')}<br/>
-                Journey Time: ${train.journeyTime || 'N/A'}<br/>
-                Fare: ₹${train.fare != null ? train.fare.toFixed(2) : 'N/A'}
-                <button onclick="window.location.href='${bookingUrl}'">Book Now</button>
-            `;
+  <div class="side left"></div>
+
+    <div class="train-content">
+    <div class="train-header">
+      <h2>${train.train_name}</h2>
+      <span class="fare">₹${train.fare != null ? train.fare.toFixed(2) : 'N/A'}</span>
+    </div>
+
+    <div class="train-body">
+      <div class="station">
+        <h3>${from}</h3>
+        <p>Departure</p>
+      </div>
+      <div class="design">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="logo_train">
+        <img src="../pictures/train.png" alt="Train Icon">
+      </div>
+      <div class="line"></div>
+      <div class="line"></div>
+        </div>
+
+      <div class="station">
+        <h3>${to}</h3>
+        <p>Arrival</p>
+      </div>
+    </div>
+
+    <div class="train-info">
+      <span> ${train.journeyTime || 'N/A'}</span>
+      <span> ${train.runs_on.join(', ')}</span>
+    </div>
+            <button onclick="window.location.href='${bookingUrl}'">
+        Book Now →
+      </button>
+      
+    </div>
+
+    <div class="side right"></div>
+
+  </div>
+`;
             resultsDiv.appendChild(div);
         });
 
     } catch (err) {
-        errorDiv.textContent = 'Failed to load data.';
-    }
+    console.error("FULL ERROR:", err);
+    errorDiv.textContent = 'Failed to load data.';
 }
+}
+
+window.onload = function () {
+    searchTrains();
+};
 
 //creating a dropdown list of stations
 async function populateStations() {
-    const res = await fetch('./data/stations.json');
+    const res = await fetch('/data/stations.json');
     const data = await res.json();
     
     ['station-list-from', 'station-list-to'].forEach(listId => {
@@ -161,4 +251,6 @@ async function populateStations() {
     });
 }
 
-populateStations();
+if (document.getElementById("station-list-from")) {
+    populateStations();
+}

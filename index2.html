@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles/index2Style.css" />
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="bg"></div>
+         <div class="logo">
+                <img src="./pictures/logo1.png" alt="Logo" />
+        </div>
+        <div class="main">
+        <div class="stepper">
+
+  <div class="step active">
+    <div class="circle">1</div>
+    <span>Search Trains</span>
+  </div>
+
+  <div class="line2 "></div>
+
+  <div class="step">
+    <div class="circle">2</div>
+    <span>Select a Train</span>
+  </div>
+
+  <div class="line2"></div>
+
+  <div class="step">
+    <div class="circle">3</div>
+    <span>Booking</span>
+  </div>
+
+</div>
+
+        <div class="search-box">
+            <div class ="stations">
+                <input id="from" placeholder="From Station" list="station-list-from" autocomplete="off" />
+                <datalist id="station-list-from"></datalist>
+
+                <input id="to" placeholder="To Station" list="station-list-to" autocomplete="off" />
+                <datalist id="station-list-to"></datalist>
+             </div>
+
+        <div class = "date">
+        <input id="date" type="date" />
+        </div>
+
+        <div class="sort">
+        <select id="sortBy">
+            <option value="">Sort By</option>
+            <option value="fare">Fare</option>
+            <option value="time">Journey Time</option>
+        </select>
+        <select id="sortOrder">
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+        
+        <button onclick="goToResults()">Search Trains</button>
+
+        </div>
+        </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

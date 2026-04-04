@@ -15,21 +15,41 @@
 
     <div class="container">
         <div class="header">
-            <span class="back" onclick="goBack()">← Back</span>
-            <h2>🎟️ My Booking</h2>
+            <div class="logo4">
+            <img src="../pictures/logo1.png" alt="Logo"  />
+            </div>
         </div>
+        <div class="stepper">
 
+  <div class="step active">
+    <div class="circle">1</div>
+    <span>Search Trains</span>
+  </div>
+
+  <div class="line2 active"></div>
+
+  <div class="step active">
+    <div class="circle">2</div>
+    <span>Select a Train</span>
+  </div>
+
+  <div class="line2 active"></div>
+
+  <div class="step active">
+    <div class="circle">3</div>
+    <span>Booking</span>
+  </div>
+</div>
+</div>
         <div class="summary" id="summary"></div>
 
-        <input id="train" readonly />
-        <input id="from" readonly />
-        <input id="to" readonly />
-        <input id="date" readonly />
+        <div id="train" readonly ></div>
+        <div id="from" readonly ></div>
+        <div id="to" readonly ></div>
+        <div id="date" readonly ></div>
 
         <div id="passengers"></div>
 
-        <button type="button" onclick="addPassenger()">+ Add Passenger</button>
-        <button onclick="confirmBooking()">Confirm Booking & Pay</button>
     </div>
 
     <script src="booking.js"></script>

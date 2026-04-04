@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+body
+{
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #e8f0ff;
+    min-height: 100vh;
+}
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+.container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.text
+{
+    color: #333;
+    line-height: 1.5;
+    margin: 50px;
+    font-family: 'Syne', sans-serif;
+}
+
+.stations{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.date input{
+    width:80%;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Syne', sans-serif;
+}
+
+/* BACKGROUND FIX */
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../pictures/train_bg_4k2.PNG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.main {
+  position: absolute;
+  top: 50%;
+  right: 20%;              
+  transform: translateY(-50%);
+  width: 400px;           
+  text-align: left;
+}
+
+
+.subtitle {
+  margin: 10px 0 30px;
+  color: #555;
+}
+
+.search-box {
+  width: 100%;
+  height: auto;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* INPUTS */
+.search-box input,.search-box select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+}
+
+/* BUTTON */
+.search-box button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border-radius: 12px;
+  border: none;
+
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+}
+
+.search-box button:hover {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+}
+.progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  margin-right: 40px;
+  padding-bottom: 0px;
+}
+
+/* STEP BLOCK */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #999;
+}
+
+/* CIRCLE */
+.circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* ACTIVE STEP */
+.step.active .circle {
+  background: linear-gradient(135deg, #ff7eb3, #0072ff);
+  color: white;
+  box-shadow: 0 0 10px rgba(0,114,255,0.5);
+}
+
+.step.active span {
+  color: #0072ff;
+}
+
+/* LINE */
+.line2 {
+  width: 60px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 10px;
+}
+
+.line2.active {
+  background: linear-gradient(90deg, #ff7eb3, #0072ff);
+}
+
+.logo {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+}
+.logo {
+  filter: 
+    drop-shadow(0 0 6px rgba(255,255,255,0.8))
+    drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+.logo img {
+  width: 300px;
+  height: auto;
+}

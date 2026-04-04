@@ -1,275 +1,256 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* CARD */
+.passenger-card {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  width: 80%;
+  margin: 40px auto;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
-:root {
-    --navy-deep: #050d1a;
-    --navy-mid: #0a1628;
-    --navy-card: rgba(12, 28, 55, 0.78);
-    --glass-border: rgba(99, 160, 255, 0.15);
-    --glass-shine: rgba(255, 255, 255, 0.06);
-    --accent-blue: #3b7fff;
-    --accent-purple: #7c5cfc;
-    --accent-cyan: #22d3ee;
-    --text-primary: #e8f0ff;
-    --text-secondary: rgba(180, 210, 255, 0.65);
-    --input-bg: rgba(255, 255, 255, 0.06);
-    --input-border: rgba(99, 160, 255, 0.2);
-    --success: #22c55e;
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+/* TITLE */
+.passenger-card h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #1e2a38;
 }
 
-body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy-deep);
-    color: var(--text-primary);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 16px;
-    overflow-x: hidden;
-    position: relative;
+/* FORM ROWS */
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 18px;
 }
 
-/* Atmospheric glow */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 70% 55% at 15% 15%, rgba(59, 127, 255, 0.11) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 50% at 85% 75%, rgba(124, 92, 252, 0.1) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+/* INPUT GROUP */
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(99, 160, 255, 0.07) 1px, transparent 1px);
-    background-size: 28px 28px;
-    pointer-events: none;
-    z-index: 0;
+/* LABEL */
+.input-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
 }
 
-.container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 440px;
-    background: var(--navy-card);
-    backdrop-filter: blur(24px) saturate(1.4);
-    -webkit-backdrop-filter: blur(24px) saturate(1.4);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 28px 28px 36px;
-    box-shadow: var(--card-shadow), inset 0 1px 0 var(--glass-shine);
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+/* INPUT + SELECT */
+.input-group input,
+.input-group select {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+/* FOCUS EFFECT */
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #0072ff;
+  box-shadow: 0 0 5px rgba(0,114,255,0.3);
 }
 
-/* Header row */
-.header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 22px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--glass-border);
+/* PHONE BOX */
+.phone-box {
+  display: flex;
+  align-items: center;
 }
 
-.header h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: -0.2px;
-    color: var(--text-primary);
-    flex: 1;
-    text-align: center;
-    margin: 0;
+.phone-box span {
+  background: #f1f1f1;
+  padding: 12px;
+  border-radius: 10px 0 0 10px;
+  font-size: 14px;
 }
 
-.back {
-    font-size: 13px;
-    color: var(--accent-cyan);
-    cursor: pointer;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(34, 211, 238, 0.25);
-    background: rgba(34, 211, 238, 0.06);
-    transition: background 0.2s, border-color 0.2s;
-    white-space: nowrap;
-    text-decoration: none;
-    user-select: none;
+.phone-box input {
+  flex: 1;
+  border-radius: 0 10px 10px 0;
+  border-left: none;
 }
 
-.back:hover {
-    background: rgba(34, 211, 238, 0.12);
-    border-color: rgba(34, 211, 238, 0.4);
-    text-decoration: none;
+/* CHECKBOX */
+.checkbox {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
 }
 
-/* Summary box */
-.summary {
-    background: linear-gradient(135deg, rgba(59, 127, 255, 0.1), rgba(124, 92, 252, 0.1));
-    border: 1px solid rgba(99, 160, 255, 0.22);
-    padding: 16px 18px;
-    border-radius: 14px;
-    margin-bottom: 18px;
-    font-size: 13.5px;
-    line-height: 1.75;
-    color: var(--text-primary);
-    position: relative;
-    overflow: hidden;
+/* BUTTON */
+.proceed-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0072ff, #ff7eb3);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
 }
 
-.summary::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-    border-radius: 14px 14px 0 0;
+/* BUTTON HOVER */
+.proceed-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
-
-.summary strong {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #a8c8ff;
-    display: block;
-    margin-bottom: 2px;
+.add-passenger-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0072ff, #ff7eb3);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
 }
-
-/* Read-only info inputs */
-input[readonly] {
-    opacity: 0.55;
-    cursor: default;
-    font-size: 13px;
-    padding: 10px 14px;
+.add-passenger-btn:hover {
+ transform: scale(1.03);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
 }
-
-/* All inputs */
-input {
-    width: 100%;
-    padding: 13px 16px;
-    margin: 5px 0;
-    border-radius: 12px;
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    color: var(--text-primary);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
-}
-
-input::placeholder {
-    color: var(--text-secondary);
-    font-weight: 300;
-}
-
-input:focus:not([readonly]) {
-    border-color: rgba(99, 160, 255, 0.5);
-    background: rgba(59, 127, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(59, 127, 255, 0.12);
-}
-
-/* Passenger section */
-#passengers {
-    margin: 10px 0 4px;
-}
-
-#passengers > div {
+.but{
     display: flex;
     gap: 10px;
-    margin-bottom: 8px;
-    animation: fadeIn 0.35s ease both;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-#passengers > div input {
-    margin: 0;
-    flex: 1;
-}
-
-#passengers > div input:last-child {
-    flex: 0 0 80px;
-    text-align: center;
-}
-
-/* Buttons */
-button {
-    width: 100%;
-    padding: 13px;
-    margin: 7px 0 4px;
-    border-radius: 12px;
-    border: none;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: 0.2px;
-}
-
-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-    pointer-events: none;
-}
-
-/* Add passenger button — outlined style */
-button[onclick="addPassenger()"] {
-    background: transparent;
-    border: 1px dashed rgba(99, 160, 255, 0.4);
-    color: var(--accent-cyan);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 11px;
-    box-shadow: none;
-}
-
-button[onclick="addPassenger()"]:hover {
-    background: rgba(59, 127, 255, 0.07);
-    border-color: rgba(99, 160, 255, 0.6);
-}
-
-/* Confirm / Pay button — primary */
-button[onclick="confirmBooking()"] {
-    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
-    color: white;
-    box-shadow: 0 4px 20px rgba(59, 127, 255, 0.35);
     margin-top: 10px;
-    padding: 15px;
-    font-size: 15px;
+    flex-direction: row;
 }
 
-button[onclick="confirmBooking()"]:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 28px rgba(59, 127, 255, 0.45);
+/* RESPONSIVE (VERY IMPORTANT) */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .passenger-card {
+    width: 95%;
+  }
+}
+.train-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 15px;
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-button[onclick="confirmBooking()"]:active {
-    transform: translateY(0);
+.train-left h2 {
+  margin: 0;
 }
+
+.train-left p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.date {
+  font-size: 12px;
+  color: gray;
+}
+
+.train-right {
+  text-align: right;
+}
+
+.duration {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.fare {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0072ff;
+}
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0px;
+  margin-right: 40px;
+  padding-bottom: 0px;
+}
+
+/* STEP BLOCK */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #999;
+}
+
+/* CIRCLE */
+.circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* ACTIVE STEP */
+.step.active .circle {
+  background: linear-gradient(135deg, #ff7eb3, #0072ff);
+  color: white;
+  box-shadow: 0 0 10px rgba(0,114,255,0.5);
+}
+
+.step.active span {
+  color: #0072ff;
+}
+
+/* LINE */
+.line2 {
+  width: 60px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 10px;
+}
+
+.line2.active {
+  background: linear-gradient(90deg, #ff7eb3, #0072ff);
+}
+
+.logo4 {
+  filter: 
+    drop-shadow(0 0 6px rgba(255,255,255,0.8))
+    drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+.logo4 img {
+  width: 200px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    height:80px;
+}
+    
