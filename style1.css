@@ -24,7 +24,7 @@ h2 {
     max-width: 80%;
     margin: 0 auto;
     padding: 28px 24px;
-    padding-bottom: 0px;
+    padding-bottom: 1px;
     border-radius: 6px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
@@ -112,7 +112,6 @@ button:hover {
 }
 
 .error {
-    margin-top: 16px;
     padding: 12px;
     background: #fee2e2;
     color: #b91c1c;

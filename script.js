@@ -90,7 +90,7 @@ async function searchTrains() {
         const fromCode = findStationCode(from, stationsData.stations);
         const toCode = findStationCode(to, stationsData.stations);
 
-        if (!fromCode || !toCode) {
+        if (!fromCode || !toCode || fromCode === toCode) {
             errorDiv.textContent = 'Invalid station name(s).';
             return;
         }
