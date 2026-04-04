@@ -1,5 +1,9 @@
 // Set today's date as default
-document.getElementById('date').value = new Date().toISOString().split('T')[0];
+const today_date=document.getElementById('date').value = new Date().toISOString().split('T')[0];
+const date=document.getElementById('date');
+
+//User cant enter a date before today
+date.min=today_date;
 
 // ---------- Helpers ----------
 
