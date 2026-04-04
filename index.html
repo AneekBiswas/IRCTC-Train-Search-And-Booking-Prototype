@@ -8,38 +8,93 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles/indexStyle.css" />
+    <link rel="stylesheet" href="style1.css" />
 </head>
 
 <body>
-
+    <div class="navbar">
+        <div class="logo">
+            <img src="./pictures/rylogo-1760424802.svg" alt="logo">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+        </div>
+    </div>
     <div class="container">
-        <h2>🚆 Train Search</h2>
+        <h2>Train Search</h2>
 
-        <input id="from" placeholder="From Station" list="station-list-from" autocomplete="off" />
-        <datalist id="station-list-from"></datalist>
+        <div class="search-row">
+            <input id="from" placeholder="From Station" list="station-list-from" autocomplete="off" />
+            <datalist id="station-list-from"></datalist>
 
-        <input id="to" placeholder="To Station" list="station-list-to" autocomplete="off" />
-        <datalist id="station-list-to"></datalist>
+            <input id="to" placeholder="To Station" list="station-list-to" autocomplete="off" />
+            <datalist id="station-list-to"></datalist>
 
-        <input id="date" type="date" />
+            <input id="date" type="date" />
 
-        <select id="sortBy">
-            <option value="">Sort By</option>
-            <option value="fare">Fare</option>
-            <option value="time">Journey Time</option>
-        </select>
-        <select id="sortOrder">
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-        </select>
+            <button onclick="searchTrains()">Search Trains</button>
+        </div>
 
-        <button onclick="searchTrains()">Search Trains</button>
+        <div class="filter-row">
+            <div class="sort-row">
+                <select id="sortBy">
+                    <option value="">Sort By</option>
+                    <option value="fare">Fare</option>
+                    <option value="time">Journey Time</option>
+                </select>
+                <select id="sortOrder">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+            <div class="refund">
+                <span class="toggle_btn">
+                    <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                    </label>
+                </span>
+                <span class="rac">
+                    Get a full refund on Cancellations
+                </span>
+            </div>
+        </div>
 
         <div class="error" id="error"></div>
         <div class="results" id="results"></div>
     </div>
 
+    <div class="footer">
+        <div class="features">
+            <h2>Features</h2>
+
+            <a href="#">Live Train Status</a>
+            <a href="#">PNR Status</a>
+            <a href="#">Seat Availability</a>
+            <a href="#">Fare Enquiry</a>
+            <a href="#">Train Schedule</a>
+        </div>
+        <div class="info">
+            <h2>Info</h2>
+
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Help & Support</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="description">
+            <h2>RailYatri</h2>
+            <p>RailYatri is a one stop solution that furnishes an expanse of data-based travel discovery at your disposal. So get connected for an inclusive experience of Smart Bus booking, Food on Train service, Train Ticket booking & journey information.</p>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2026 RailYatri. All rights reserved.</p>
+    </div>
+
     <script src="script.js"></script>
+
 </body>
 </html>

@@ -28,12 +28,26 @@ function addPassenger(name = '', age = '') {
     const container = document.getElementById('passengers');
 
     const div = document.createElement('div');
-    div.style.marginBottom = '10px';
+    div.className = 'passenger-row';
 
     div.innerHTML = `
-    <input class="p-name" placeholder="Passenger Name" value="${name}" />
-    <input class="p-age" type="number" placeholder="Age" value="${age}" />
+    <input class="p-name" placeholder="Passenger Name" pattern="[A-Za-z\s]+"  value="${name}" />
+    <input class="p-age" type="number" placeholder="Age" min="1" max="100" value="${age}" />
     `;
+
+    const nameInput = div.querySelector('.p-name');
+    const ageInput = div.querySelector('.p-age');
+
+    nameInput.addEventListener('input', () => {
+        nameInput.value = nameInput.value.replace(/[^A-Za-z\s]/g, '');
+    });
+
+    ageInput.addEventListener('input', () => {
+        let val = parseInt(ageInput.value);
+        if (isNaN(val)) ageInput.value = '';
+        else if (val<1) ageInput.value = '1';
+        else if (val>100) ageInput.value = '100';
+    });
 
     container.appendChild(div);
 }
@@ -109,7 +123,7 @@ async function confirmBooking() {
         }
 
         const fare = calculateFare(train, fromCode, toCode, passengers.length);
-        alert(`✅ Booking Confirmed!\nTotal Fare: ₹${fare.toFixed(2)}\nPress Ok to Pay`);
+        alert(`Booking Confirmed!\nTotal Fare: ₹${fare.toFixed(2)}\n\nPress Ok to Pay`);
 
     } catch (err) {
         alert('Failed to load data.');
@@ -117,5 +131,5 @@ async function confirmBooking() {
 }
 
 function goBack() {
-    window.location.href = '/index.html';
+    window.location.href = '../index.html';
 }
