@@ -164,8 +164,8 @@ async function populateStations() {
     ['station-list-from', 'station-list-to'].forEach((listId, index) => {
         const container = document.getElementById(listId);
         const input = index === 0 
-            ? document.getElementById('fromInput') 
-            : document.getElementById('toInput');
+            ? document.getElementById('from') 
+            : document.getElementById('to');
 
         data.stations.forEach(s => {
             const div = document.createElement('div');
@@ -190,11 +190,43 @@ async function populateStations() {
             const filter = input.value.toLowerCase();
             const options = container.children;
 
+            container.classList.add('show');
+
             for (let i = 0; i < options.length; i++) {
                 const text = options[i].innerText.toLowerCase();
                 options[i].style.display = text.includes(filter) ? "block" : "none";
             }
         });
+
+        // select first visible option on Enter
+        input.addEventListener("keydown",(e)=>{
+            if(e.key === "Enter"){
+                e.preventDefault();
+                const options = container.children;
+                for (let i = 0; i < options.length; i++) {
+                    if(options[i].style.display !== "none"){
+                        input.value = options[i].innerText;
+                        container.classList.remove("show");
+                        break;
+                    }
+                }
+            }
+        })
+
+        // re-search if user changes the station using the dropdown and both fields are filled
+        input.addEventListener("keydown",(e)=>{
+            if(e.key === "Enter"){
+                e.preventDefault();
+                const options = container.children;
+                for (let i = 0; i < options.length; i++) {
+                    if(options[i].style.display !== "none"){
+                        input.value = options[i].innerText;
+                        container.classList.remove("show");
+                        break;
+                    }
+                }
+            }
+        })
     });
 }
 
