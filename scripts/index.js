@@ -239,7 +239,6 @@ document.addEventListener("click", (e) => {
     });
 });
 
-// Run function
 populateStations();
 
 function swapStations() {
