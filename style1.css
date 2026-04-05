@@ -358,7 +358,3 @@ button:hover {
   transition: 0.2s;
 }
 
-.option-item:hover {
-  background: linear-gradient(90deg, #007bff, #00c6ff);
-  color: white;
-}
