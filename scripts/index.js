@@ -160,16 +160,84 @@ async function searchTrains() {
 async function populateStations() {
     const res = await fetch('./data/stations.json');
     const data = await res.json();
-    
-    ['station-list-from', 'station-list-to'].forEach(listId => {
-        const dl = document.getElementById(listId);
+
+    ['station-list-from', 'station-list-to'].forEach((listId, index) => {
+        const container = document.getElementById(listId);
+        const input = index === 0 
+            ? document.getElementById('from') 
+            : document.getElementById('to');
+
         data.stations.forEach(s => {
-            const option = document.createElement('option');
-            option.value = s.name;
-            dl.appendChild(option);
+            const div = document.createElement('div');
+            div.classList.add('option-item');
+            div.innerText =   s.name;
+
+            div.addEventListener('click', () => {
+                input.value = s.name;
+                container.classList.remove("show");
+            });
+
+            container.appendChild(div);
         });
+
+        // Show dropdown
+        input.addEventListener('focus', () => {
+            container.classList.add('show');
+        });
+
+        // Filter while typing
+        input.addEventListener('input', () => {
+            const filter = input.value.toLowerCase();
+            const options = container.children;
+
+            container.classList.add('show');
+
+            for (let i = 0; i < options.length; i++) {
+                const text = options[i].innerText.toLowerCase();
+                options[i].style.display = text.includes(filter) ? "block" : "none";
+            }
+        });
+
+        // select first visible option on Enter
+        input.addEventListener("keydown",(e)=>{
+            if(e.key === "Enter"){
+                e.preventDefault();
+                const options = container.children;
+                for (let i = 0; i < options.length; i++) {
+                    if(options[i].style.display !== "none"){
+                        input.value = options[i].innerText;
+                        container.classList.remove("show");
+                        break;
+                    }
+                }
+            }
+        })
+
+        // re-search if user changes the station using the dropdown and both fields are filled
+        input.addEventListener("keydown",(e)=>{
+            if(e.key === "Enter"){
+                e.preventDefault();
+                const options = container.children;
+                for (let i = 0; i < options.length; i++) {
+                    if(options[i].style.display !== "none"){
+                        input.value = options[i].innerText;
+                        container.classList.remove("show");
+                        break;
+                    }
+                }
+            }
+        })
     });
 }
+
+// Close when clicking outside
+document.addEventListener("click", (e) => {
+    document.querySelectorAll(".options").forEach(list => {
+        if (!list.parentElement.contains(e.target)) {
+            list.classList.remove("show");
+        }
+    });
+});
 
 populateStations();
 

@@ -24,15 +24,18 @@
     </div>
     <div class="container">
         <h2>Train Search</h2>
-
         <div class="search-row">
-            <input id="from" placeholder="From Station" list="station-list-from" autocomplete="off" />
-            <datalist id="station-list-from"></datalist>
+            <div class="dropdown">
+                <input type="text" placeholder="From Station" id="from">
+                <div class="options" id="station-list-from"></div>
+            </div>
             <button id="swapBtn" onclick="swapStations()">
                 &#x21C4;
             </button>
-            <input id="to" placeholder="To Station" list="station-list-to" autocomplete="off" />
-            <datalist id="station-list-to"></datalist>
+            <div class="dropdown">
+                <input type="text" placeholder="To Station" id="to">
+                <div class="options" id="station-list-to"></div>
+            </div>
 
             <input id="date" type="date" />
 
