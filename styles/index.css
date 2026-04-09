@@ -4,10 +4,16 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'DM Sans', sans-serif;
     background: #0047AB;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h2 {
@@ -17,26 +23,40 @@ h2 {
     font-weight: 700;
     margin-bottom: 15px;
 }
-.navbar{
+
+.navbar {
     background: #fff;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-shrink: 0;
 }
-.navbar .logo{
+
+.navbar .logo {
     padding: 1rem 2rem;
 }
-.navbar .nav-links a{
+
+.navbar .logo img {
+    max-width: 140px;
+    height: auto;
+}
+
+.navbar .nav-links a {
     text-decoration: none;
     color: #0047AB;
     font-weight: 500;
     margin-right: 1.5rem;
     transition: color 0.2s;
+    font-size: 0.95rem;
 }
+
 .navbar .nav-links a:hover {
     color: #0096FF;
+}
+
+.page-content {
+    flex: 1;
 }
 
 .container {
@@ -44,7 +64,7 @@ h2 {
     max-width: 80%;
     margin: 20px auto;
     padding: 28px 24px;
-    padding-bottom: 1px;
+    padding-bottom: 24px;
     border-radius: 6px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
@@ -71,7 +91,7 @@ select:focus {
 #swapBtn {
     width: 40px;
     height: 40px;
-    padding: 0px;
+    padding: 0;
     font-size: 1.7rem;
     background: #0096FF;
     color: #fff;
@@ -79,6 +99,7 @@ select:focus {
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.2s;
+    flex-shrink: 0;
 }
 
 select {
@@ -95,10 +116,12 @@ select {
     gap: 12px;
     margin-bottom: 12px;
     align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .search-row input {
     flex: 1;
+    min-width: 0;
 }
 
 .search-row input#date {
@@ -106,7 +129,7 @@ select {
     flex: none;
 }
 
-.search-row button {
+.search-row > button:not(#swapBtn) {
     width: 150px;
     flex: none;
     margin-top: 0;
@@ -125,6 +148,7 @@ select {
     gap: 12px;
     margin-bottom: 16px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .sort-row select {
@@ -134,7 +158,7 @@ select {
 
 button {
     width: 100%;
-    height:fit-content;
+    height: fit-content;
     padding: 14px;
     margin-top: 6px;
     background: #0096FF;
@@ -199,31 +223,33 @@ button:hover {
 .train button:hover {
     background: #0080dd;
 }
+
 .footer {
     background: #fff;
     padding: 20px 50px;
-    margin-top: 40px;
+    margin-top: auto;
     text-align: center;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    flex-direction: row;
-    flex: 1;
-    justify-content: space-between;
+    gap: 20px;
 }
-.footer .features{
+
+.footer .features {
     display: flex;
     flex-direction: column;
     gap: 24px;
     justify-content: center;
     padding: 20px 0;
 }
-.footer .info{
+
+.footer .info {
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding: 21px 0;
 }
-.footer .description{
+
+.footer .description {
     color: #666;
     flex: 1;
     max-width: 90%;
@@ -231,15 +257,14 @@ button:hover {
     padding-top: 20px;
 }
 
-.footer a{
+.footer a {
     text-decoration: none;
     color: #0047AB;
     font-weight: 500;
     transition: color 0.2s;
 }
-.footer .info a:hover {
-    color: #0096FF;
-}
+
+.footer .info a:hover,
 .footer .features a:hover {
     color: #0096FF;
 }
@@ -247,114 +272,238 @@ button:hover {
 .copyright {
     background: #fff;
     text-align: center;
-    padding-bottom: 2rem;
+    padding: 0.5rem 0 2rem;
 }
 
 .switch {
-  font-size: 17px;
-  position: relative;
-  display: inline-block;
-  width: 3.5em;
-  height: 1.5em;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 1.5em;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-/* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgb(182, 182, 182);
-  transition: .4s;
-  border-radius: 10px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(182, 182, 182);
+    transition: .4s;
+    border-radius: 10px;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 1.4em;
-  width: 1.4em;
-  border-radius: 8px;
-  left: 0.3em;
-  bottom: 0.3em;
-  top: 0.05em;
-  transform: rotate(270deg);
-  background-color: rgb(255, 255, 255);
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 8px;
+    left: 0.3em;
+    bottom: 0.3em;
+    top: 0.05em;
+    transform: rotate(270deg);
+    background-color: rgb(255, 255, 255);
+    transition: .4s;
 }
 
 .switch input:checked + .slider {
-  background-color: #21cc4c;
+    background-color: #21cc4c;
 }
 
 .switch input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196F3;
 }
 
 .switch input:checked + .slider:before {
-  transform: translateX(1.5em);
+    transform: translateX(1.5em);
 }
 
-.refund{
+.refund {
     display: flex;
     align-items: center;
     gap: 8px;
     padding-bottom: 1rem;
 }
+
 .dropdown {
-  position: relative;
-  width: 280px;
+    position: relative;
+    flex: 1;
+    min-width: 0;
 }
 
 .dropdown input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: 0.3s;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
 }
 
 .dropdown input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0,123,255,0.3);
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
 .options {
-  position: absolute;
-  width: 100%;
-  max-height: 220px;
-  overflow-y: auto;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  margin-top: 5px;
-  display: none;
-  z-index: 1000;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: 0.3s;
+    position: absolute;
+    width: 100%;
+    max-height: 220px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-top: 5px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.3s;
 }
 
 .options.show {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .option-item {
-  padding: 12px;
-  cursor: pointer;
-  transition: 0.2s;
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
+.option-item:hover {
+    background: #f0f8ff;
+}
+
+
+@media (max-width: 900px) {
+    .container {
+        max-width: 95%;
+        padding: 20px 16px;
+    }
+
+    .footer {
+        grid-template-columns: 1fr 1fr;
+        padding: 20px 30px;
+    }
+
+    .footer .description {
+        grid-column: 1 / -1;
+        margin-left: 0;
+        text-align: left;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar .logo {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar .logo img {
+        max-width: 110px;
+    }
+
+    .navbar .nav-links a {
+        margin-right: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 10px;
+        border-radius: 6px;
+        padding: 16px 14px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .search-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .search-row .dropdown,
+    .search-row input,
+    .search-row input#date,
+    .search-row > button:not(#swapBtn) {
+        width: 100%;
+        flex: none;
+    }
+
+    #swapBtn {
+        align-self: center;
+        transform: rotate(90deg);
+    }
+
+    .filter-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .sort-row {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .sort-row select {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    input,
+    select {
+        width: 100%;
+    }
+
+    .footer {
+        grid-template-columns: 1fr;
+        padding: 20px 20px;
+        text-align: left;
+        gap: 8px;
+    }
+
+    .footer .features {
+        gap: 14px;
+        padding: 10px 0;
+    }
+
+    .footer .info {
+        padding: 10px 0;
+    }
+
+    .footer .description {
+        margin-left: 0;
+        padding-top: 10px;
+    }
+
+    .train button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .navbar .nav-links a {
+        font-size: 0.78rem;
+        margin-right: 0.5rem;
+    }
+
+    .navbar .logo img {
+        max-width: 90px;
+    }
+}

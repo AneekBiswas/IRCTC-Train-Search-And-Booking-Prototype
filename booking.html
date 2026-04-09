@@ -23,23 +23,25 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="header">
-            <span class="back" onclick="goBack()">← Back</span>
-            <h2>My Booking</h2>
+    <div class="page-content">
+        <div class="container">
+            <div class="header">
+                <span class="back" onclick="goBack()">← Back</span>
+                <h2>My Booking</h2>
+            </div>
+
+            <div class="summary" id="summary"></div>
+
+            <input id="train" readonly />
+            <input id="from" readonly />
+            <input id="to" readonly />
+            <input id="date" readonly />
+
+            <div id="passengers"></div>
+
+            <button type="button" onclick="addPassenger()">+ Add Passenger</button>
+            <button onclick="confirmBooking()">Confirm Booking & Pay</button>
         </div>
-
-        <div class="summary" id="summary"></div>
-
-        <input id="train" readonly />
-        <input id="from" readonly />
-        <input id="to" readonly />
-        <input id="date" readonly />
-
-        <div id="passengers"></div>
-
-        <button type="button" onclick="addPassenger()">+ Add Passenger</button>
-        <button onclick="confirmBooking()">Confirm Booking & Pay</button>
     </div>
 
     <div class="footer">

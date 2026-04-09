@@ -4,39 +4,58 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'DM Sans', sans-serif;
     background: #0047AB;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.navbar{
+.navbar {
     background: #fff;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2rem;
+    flex-shrink: 0;
 }
-.navbar .logo{
+
+.navbar .logo {
     padding: 1rem 2rem;
 }
-.navbar .nav-links a{
+
+.navbar .logo img {
+    max-width: 140px;
+    height: auto;
+}
+
+.navbar .nav-links a {
     text-decoration: none;
     color: #0047AB;
     font-weight: 500;
     margin-right: 1.5rem;
     transition: color 0.2s;
+    font-size: 0.95rem;
 }
+
 .navbar .nav-links a:hover {
     color: #0096FF;
+}
+
+.page-content {
+    flex: 1;
 }
 
 .container {
     background: #fff;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     padding: 28px 24px;
     border-radius: 6px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -56,6 +75,7 @@ body {
     padding: 6px 12px;
     border-radius: 4px;
     transition: background 0.2s;
+    white-space: nowrap;
 }
 
 .back:hover {
@@ -118,11 +138,13 @@ input[readonly]:focus {
     display: flex;
     gap: 12px;
     margin-bottom: 12px;
+    align-items: flex-start;
 }
 
 .passenger-row input {
     flex: 1;
     margin-bottom: 0;
+    min-width: 0;
 }
 
 .passenger-row input:last-child {
@@ -166,28 +188,29 @@ button:first-of-type {
 .footer {
     background: #fff;
     padding: 20px 50px;
-    margin-top: 40px;
+    margin-top: auto;
     text-align: center;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    flex-direction: row;
-    flex: 1;
-    justify-content: space-between;
+    gap: 20px;
 }
-.footer .features{
+
+.footer .features {
     display: flex;
     flex-direction: column;
     gap: 24px;
     justify-content: center;
     padding: 20px 0;
 }
-.footer .info{
+
+.footer .info {
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding: 21px 0;
 }
-.footer .description{
+
+.footer .description {
     color: #666;
     flex: 1;
     max-width: 90%;
@@ -195,15 +218,14 @@ button:first-of-type {
     padding-top: 20px;
 }
 
-.footer a{
+.footer a {
     text-decoration: none;
     color: #0047AB;
     font-weight: 500;
     transition: color 0.2s;
 }
-.footer .info a:hover {
-    color: #0096FF;
-}
+
+.footer .info a:hover,
 .footer .features a:hover {
     color: #0096FF;
 }
@@ -211,5 +233,99 @@ button:first-of-type {
 .copyright {
     background: #fff;
     text-align: center;
-    padding-bottom: 2rem;
+    padding: 0.5rem 0 2rem;
+}
+
+@media (max-width: 900px) {
+    .container {
+        max-width: 90%;
+        margin: 0 auto 30px;
+    }
+
+    .footer {
+        grid-template-columns: 1fr 1fr;
+        padding: 20px 30px;
+    }
+
+    .footer .description {
+        grid-column: 1 / -1;
+        margin-left: 0;
+        text-align: left;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar .logo {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar .logo img {
+        max-width: 110px;
+    }
+
+    .navbar .nav-links a {
+        margin-right: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .navbar {
+        margin-bottom: 1rem;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0 10px 20px;
+        padding: 18px 14px;
+        border-radius: 6px;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .back {
+        font-size: 1.1rem;
+        padding: 4px 8px;
+    }
+
+    .passenger-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .passenger-row input:last-child {
+        width: 100%;
+    }
+
+    .footer {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        text-align: left;
+        gap: 8px;
+    }
+
+    .footer .features {
+        gap: 14px;
+        padding: 10px 0;
+    }
+
+    .footer .info {
+        padding: 10px 0;
+    }
+
+    .footer .description {
+        margin-left: 0;
+        padding-top: 10px;
+    }
+}
+
+@media (max-width: 380px) {
+    .navbar .nav-links a {
+        font-size: 0.78rem;
+        margin-right: 0.5rem;
+    }
+
+    .navbar .logo img {
+        max-width: 90px;
+    }
 }
