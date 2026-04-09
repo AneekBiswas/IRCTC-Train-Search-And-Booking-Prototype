@@ -22,53 +22,56 @@
             <a href="#">Register</a>
         </div>
     </div>
-    <div class="container">
-        <h2>Train Search</h2>
-        <div class="search-row">
-            <div class="dropdown">
-                <input type="text" placeholder="From Station" id="from">
-                <div class="options" id="station-list-from"></div>
-            </div>
-            <button id="swapBtn" onclick="swapStations()">
-                &#x21C4;
-            </button>
-            <div class="dropdown">
-                <input type="text" placeholder="To Station" id="to">
-                <div class="options" id="station-list-to"></div>
+
+    <div class="page-content">
+        <div class="container">
+            <h2>Train Search</h2>
+            <div class="search-row">
+                <div class="dropdown">
+                    <input type="text" placeholder="From Station" id="from">
+                    <div class="options" id="station-list-from"></div>
+                </div>
+                <button id="swapBtn" onclick="swapStations()">
+                    &#x21C4;
+                </button>
+                <div class="dropdown">
+                    <input type="text" placeholder="To Station" id="to">
+                    <div class="options" id="station-list-to"></div>
+                </div>
+
+                <input id="date" type="date" />
+
+                <button onclick="searchTrains()">Search Trains</button>
             </div>
 
-            <input id="date" type="date" />
+            <div class="filter-row">
+                <div class="sort-row">
+                    <select id="sortBy">
+                        <option value="">Sort By</option>
+                        <option value="fare">Fare</option>
+                        <option value="time">Journey Time</option>
+                    </select>
+                    <select id="sortOrder">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </div>
+                <div class="refund">
+                    <span class="toggle_btn">
+                        <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                        </label>
+                    </span>
+                    <span class="rac">
+                        Get a full refund on Cancellations
+                    </span>
+                </div>
+            </div>
 
-            <button onclick="searchTrains()">Search Trains</button>
+            <div class="error" id="error"></div>
+            <div class="results" id="results"></div>
         </div>
-
-        <div class="filter-row">
-            <div class="sort-row">
-                <select id="sortBy">
-                    <option value="">Sort By</option>
-                    <option value="fare">Fare</option>
-                    <option value="time">Journey Time</option>
-                </select>
-                <select id="sortOrder">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-            </div>
-            <div class="refund">
-                <span class="toggle_btn">
-                    <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                    </label>
-                </span>
-                <span class="rac">
-                    Get a full refund on Cancellations
-                </span>
-            </div>
-        </div>
-
-        <div class="error" id="error"></div>
-        <div class="results" id="results"></div>
     </div>
 
     <div class="footer">
